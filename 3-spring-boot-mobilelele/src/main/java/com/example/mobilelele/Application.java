@@ -1,4 +1,4 @@
-package com.example.springbootmobilelele;
+package com.example.mobilelele;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

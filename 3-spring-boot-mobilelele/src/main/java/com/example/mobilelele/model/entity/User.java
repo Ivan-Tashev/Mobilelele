@@ -1,4 +1,4 @@
-package com.example.springbootmobilelele.entity;
+package com.example.mobilelele.model.entity;
 
 import javax.persistence.*;
 import java.util.List;

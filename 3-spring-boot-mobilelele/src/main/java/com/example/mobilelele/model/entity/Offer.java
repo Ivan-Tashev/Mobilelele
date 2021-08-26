@@ -1,7 +1,7 @@
-package com.example.springbootmobilelele.entity;
+package com.example.mobilelele.model.entity;
 
-import com.example.springbootmobilelele.entity.enums.Engine;
-import com.example.springbootmobilelele.entity.enums.Transmission;
+import com.example.mobilelele.model.entity.enums.Engine;
+import com.example.mobilelele.model.entity.enums.Transmission;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

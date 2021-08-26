@@ -1,6 +1,6 @@
-package com.example.springbootmobilelele.entity;
+package com.example.mobilelele.model.entity;
 
-import com.example.springbootmobilelele.entity.enums.Role;
+import com.example.mobilelele.model.entity.enums.Role;
 
 import javax.persistence.*;
 
