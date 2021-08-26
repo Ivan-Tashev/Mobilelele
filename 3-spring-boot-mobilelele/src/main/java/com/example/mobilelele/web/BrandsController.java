@@ -16,9 +16,13 @@ public class BrandsController { // in web package
 
     @GetMapping("/all") // request mapping to endpoint, used method GET
     public String allBrands(Model model) {
-        model.addAttribute("allBrands", brandService.getAllBrands());
+        model.addAttribute("brands", brandService.getAllBrands());
         return "brands"; // return response with resource (html, json...)
     } // http://localhost:8080/brands/all
+
+
+
+    // EDUCATION PURPOSES BELLOW !!!
 
     @GetMapping("/details/{id}")
     @ResponseBody // return response body (5)

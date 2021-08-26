@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.otg">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
-       <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>MobiLeLeLe</title>
     <link rel="stylesheet" href="/css/reset-css.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto col-12 justify-content-between">
                 <li class="nav-item"
-                    >
+                >
                     <a class="nav-link" href="/brands/all">All Brands</a>
                 </li>
                 <li class="nav-item">
@@ -52,14 +52,14 @@
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
-                    </li>
-                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/login">Login</a>
+                </li>
+
             </ul>
         </div>
     </nav>
@@ -84,13 +84,15 @@
                         <th>End Year</th>
                         <th>Picture</th>
                     </tr>
-                    <tr>
-                        <th>No</th>
-                        <th >Model Name</th>
-                        <th >Model Category</th>
-                        <th >Model Start Year</th>
-                        <th >Model End Year</th>
-                        <th><img alt="image" src="/"
+                    <tr
+                            th:each="model, iter: ${brand.models}"
+                            th:object="${model}">
+                        <th th:text="${iter.index} + 1">No</th>
+                        <th th:text="*{name}">Model Name</th>
+                        <th th:text="*{category}">Model Category</th>
+                        <th th:text="*{startYear}">Model Start Year</th>
+                        <th th:text="*{endYear}?:'-'">Model End Year</th>
+                        <th><img alt="image" th:src="*{imageUrl}"
                                  class="img-thumbnail rounded"></th>
                     </tr>
                 </table>
@@ -99,7 +101,7 @@
     </div>
 
     <div>
-             <footer> </footer>
+        <footer></footer>
     </div>
 </div>
 </body>

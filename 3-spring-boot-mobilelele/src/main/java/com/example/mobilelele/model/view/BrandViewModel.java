@@ -1,10 +1,11 @@
 package com.example.mobilelele.model.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrandViewModel {
     private String name;
-    private List<ModelViewModel> models;
+    private List<ModelViewModel> models = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -20,6 +21,11 @@ public class BrandViewModel {
 
     public void setModels(List<ModelViewModel> models) {
         this.models = models;
+    }
+
+    public BrandViewModel addModel(ModelViewModel modelViewModel){
+        this.models.add(modelViewModel);
+        return this;
     }
 
     @Override
