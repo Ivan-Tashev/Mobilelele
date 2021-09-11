@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block>th:block</th:block>
+
+<!--    <span th:text="${#session.user.username}"></span>-->
+
+<form th:action="@{/a}" th:method="get">
+    <label>Id:<input type="number" name="id"/></label>
+    <button type="submit">Send</button>
+</form>
+<br>
+<p>from model("id", id) Query string (?id=x)
+    <span th:text="${id}"></span>
+</p>
+<br>
+<p th:each="i : ${obj}">from model("obj", id + 1) Query string (?id=x)
+    <span th:text="${i}"></span>
+</p>
+<br>
+<p th:each="b : ${brands}" th:object="${b}">from model("brands", List.of("Brand1, Brand2))
+    <span th:text="*{name}"></span>
+</p>
+<br>
+<footer th:replace="/fragment/footer.html :: copy">
+</footer>
+</body>
+</html>

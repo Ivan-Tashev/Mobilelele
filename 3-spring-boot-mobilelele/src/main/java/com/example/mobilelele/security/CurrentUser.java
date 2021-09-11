@@ -7,7 +7,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class CurrentUser {
     private String name = "Anonymous";
-    private boolean isAnonymous;
+    private boolean isAnonymous = true;
 
     public String getName() {
         return name;
