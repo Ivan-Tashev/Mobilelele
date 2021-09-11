@@ -3,13 +3,16 @@ package com.example.mobilelele;
 import com.example.mobilelele.model.entity.Brand;
 import com.example.mobilelele.model.entity.Model;
 import com.example.mobilelele.model.entity.Offer;
+import com.example.mobilelele.model.entity.User;
 import com.example.mobilelele.model.entity.enums.Category;
 import com.example.mobilelele.model.entity.enums.Engine;
 import com.example.mobilelele.model.entity.enums.Transmission;
 import com.example.mobilelele.repo.BrandRepo;
 import com.example.mobilelele.repo.ModelRepo;
 import com.example.mobilelele.repo.OfferRepo;
+import com.example.mobilelele.repo.UserRepo;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -20,11 +23,15 @@ public class DataInitializer implements CommandLineRunner {
     private final ModelRepo modelRepo;
     private final BrandRepo brandRepo;
     private final OfferRepo offerRepo;
+    private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(ModelRepo modelRepo, BrandRepo brandRepo, OfferRepo offerRepo) {
+    public DataInitializer(ModelRepo modelRepo, BrandRepo brandRepo, OfferRepo offerRepo, UserRepo userRepo, PasswordEncoder passwordEncoder) {
         this.modelRepo = modelRepo;
         this.brandRepo = brandRepo;
         this.offerRepo = offerRepo;
+        this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -49,6 +56,19 @@ public class DataInitializer implements CommandLineRunner {
                 "https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg",
                 80000, BigDecimal.valueOf(15200),2019,"Used, good condition...", Transmission.MANUAL);
 
+        initAdmin();
+    }
+
+    private void initAdmin() {
+        User admin = new User();
+        admin.setFirstName("John");
+        admin.setLastName("Smith");
+        admin.setUsername("admin");
+            // save the password encoded to hash in DB
+        admin.setPassword(passwordEncoder.encode("1"));
+        admin.setCreated(Instant.now());
+        admin.setModified(Instant.now());
+        userRepo.save(admin);
     }
 
     private void saveOffer(Model model, Engine engine, String imageUrl, Integer km, BigDecimal price,

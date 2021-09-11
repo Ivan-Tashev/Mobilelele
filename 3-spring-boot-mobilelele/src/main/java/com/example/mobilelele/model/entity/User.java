@@ -10,6 +10,9 @@ public class User extends BaseEntity {
     @Column(unique = true)
     private String username;
 
+    @Column
+    private String password;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -31,6 +34,14 @@ public class User extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -76,10 +87,8 @@ public class User extends BaseEntity {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", created=" + created +
-                ", modified=" + modified +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
+                ", password=****" +'\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", isActive=" + isActive +

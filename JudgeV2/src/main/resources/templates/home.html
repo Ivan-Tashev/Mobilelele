@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body id="reportsPage">
+<div class="" id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-xl navbar-light bg-light rounded">
+                    <a class="navbar-brand" href="/">
+                        <h1 class="tm-site-title mb-0">Judge v2</h1>
+                    </a>
+                    <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span>Hello {username}</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Add Exercise</a>
+                                    <a class="dropdown-item" href="#">Add Role</a>
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Check Homework</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Add Homework</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Profile</a>
+                            </li>
+
+                        </ul>
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                <a class="nav-link d-flex" href="#">
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row tm-content-row tm-mt-big">
+
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block h-100">
+                    <div id="chart_div" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block h-100">
+                    <div id="googlePiechart" style="width: 100%; height: 100%;"></div>
+
+                </div>
+            </div>
+            <div class="tm-col tm-col-small">
+                <div class="bg-white tm-block h-100">
+                    <div id="googleGauge" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+
+
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block h-100">
+                    <div class="row">
+                        <div class="col-8">
+                            <h2 class="tm-block-title d-inline-block">Top Scored Students</h2>
+                        </div>
+                        <div class="col-4 text-right">
+                            <a class="tm-link-black">View All</a>
+                        </div>
+                    </div>
+                    <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+
+                        <li class="tm-list-group-item">Top student one</li>
+                        <li class="tm-list-group-item">Top student two</li>
+                        <li class="tm-list-group-item">Top student three</li>
+
+                    </ol>
+                </div>
+            </div>
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block h-100">
+                    <div class="auto-jsCalendar w-100"></div>
+                </div>
+            </div>
+            <div class="tm-col tm-col-small">
+                <div class="bg-white tm-block h-100">
+                    <h2 class="tm-block-title">Active Exercises</h2>
+                    <ol class="tm-list-group">
+
+                        <li class="tm-list-group-item">Active exercise one</li>
+                        <li class="tm-list-group-item">Active exercise two</li>
+                        <li class="tm-list-group-item">Active exercise three</li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </div>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    /*<![CDATA[*/
+
+    // Load google Pie charts
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        //ToDo all grades count
+        let six = 1;
+        let five = 2;
+        let four = 4;
+        let three = 4;
+        let two = 5;
+        let dataPie = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Excellent', six],
+            ['Very Good', five],
+            ['Good', four],
+            ['Average', three],
+            ['Fail', two]
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        // 'width':550, 'height':400
+        let optionsPie = {
+            'title': 'My Average Day',
+            is3D: true,
+            chartArea: {left: 0, top: 0, riwidth: 0, bottom: 0, width: '100%', height: '100%'}
+        };
+
+        // Display the chart inside the <div> element with id="piechart"
+        let chartPie = new google.visualization
+            .PieChart(document.getElementById('googlePiechart'));
+        chartPie.draw(dataPie, optionsPie);
+    }
+
+    google.charts.setOnLoadCallback(drawAreaChart);
+
+    function drawAreaChart() {
+        //ToDo averageGrades
+        let averageGrade = 4;
+
+        let dataArea = google.visualization.arrayToDataTable([
+            ['Grades', 'Legacy', 'Now'],
+            ['2018-Q2', 3.5, averageGrade],
+            ['2018-Q3', 2.5, averageGrade],
+            ['2018-Q4', 4.0, averageGrade],
+            ['2019-Q1', 3.6, averageGrade],
+            ['2019-Q2', 5.3, averageGrade],
+            ['2019-Q3', 3.9, averageGrade],
+            ['2019-Q4', 5.2, averageGrade]
+        ]);
+
+        let optionsArea = {
+            title: 'Legacy vs now grades',
+            vAxis: {minValue: 2}
+        };
+
+        let chartArea = new google.visualization
+            .AreaChart(document.getElementById('chart_div'));
+        chartArea.draw(dataArea, optionsArea);
+
+    }
+
+    google.charts.load('current', {'packages': ['gauge']});
+    google.charts.setOnLoadCallback(drawGauge);
+
+    function drawGauge() {
+        //ToDo total count of register users
+        let totalStudents = 20;
+        let dataGauge = google.visualization.arrayToDataTable([
+            ['Label', 'Value'],
+            ['All users', totalStudents]
+        ]);
+
+        let optionsGauge = {
+            // width: 400, height: 120,
+            // greenFrom:25, greenTo:75,
+            title: 'All register users',
+            redFrom: 90, redTo: 100,
+            yellowFrom: 75, yellowTo: 90,
+            minorTicks: 20,
+            animation: {
+                startup: true,
+                duration: 100,
+                easing: 'linear',
+            },
+            vAxis: {minValue: 0, maxValue: 100}
+        };
+
+        let chartGauge = new google.visualization.Gauge(document.getElementById('googleGauge'));
+
+        chartGauge.draw(dataGauge, optionsGauge);
+
+    }
+
+    /*]]>*/
+</script>
+</body>
+</html>

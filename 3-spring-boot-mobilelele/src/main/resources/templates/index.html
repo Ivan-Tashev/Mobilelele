@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -67,7 +67,7 @@
 
 
 <div class="container-fluid">
-    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe</h5>
+    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe, <span th:text="${@currentUser.getName()}"></span>!</h5>
 </div>
 
 <div>
