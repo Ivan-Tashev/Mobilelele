@@ -22,8 +22,8 @@ public class User extends BaseEntity {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @ManyToMany
-    private List<UserRole> role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserRole> roles;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -68,12 +68,12 @@ public class User extends BaseEntity {
         isActive = active;
     }
 
-    public List<UserRole> getRole() {
-        return role;
+    public List<UserRole> getRoles() {
+        return roles;
     }
 
-    public void setRole(List<UserRole> role) {
-        this.role = role;
+    public void setRoles(List<UserRole> role) {
+        this.roles = role;
     }
 
     public String getImageUrl() {
@@ -92,7 +92,7 @@ public class User extends BaseEntity {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", isActive=" + isActive +
-                ", role=" + role +
+                ", role=" + roles +
                 ", imageUrl='" + imageUrl + '\'' +
                 "} " + super.toString();
     }

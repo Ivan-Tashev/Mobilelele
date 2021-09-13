@@ -72,18 +72,18 @@ public class DataInitializer implements CommandLineRunner {
         admin.setUsername("admin");
             // save the password encoded to hash in DB
         admin.setPassword(passwordEncoder.encode("1"));
-        admin.setRole(List.of(adminRole, userRole));
+        admin.setRoles(List.of(adminRole, userRole));
         admin.setCreated(Instant.now());
         admin.setModified(Instant.now());
         userRepo.save(admin);
         // create user with 1 role
         User user = new User();
-        user.setFirstName("Anne");
+        user.setFirstName("Nicole");
         user.setLastName("Walt");
-        user.setUsername("Anne");
+        user.setUsername("Nicole");
         // save the password encoded to hash in DB
         user.setPassword(passwordEncoder.encode("2"));
-        user.setRole(List.of(userRole));
+        user.setRoles(List.of(userRole));
         user.setCreated(Instant.now());
         user.setModified(Instant.now());
         userRepo.save(user);
