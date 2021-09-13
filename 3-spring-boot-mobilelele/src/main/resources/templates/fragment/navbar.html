@@ -30,12 +30,20 @@
                         <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <div class="form-inline my-2 my-lg-0 border px-3">
-                        <div class="logged-user"
-                             text="Welcome, Gosho"></div>
-                        <a class="nav-link" href="/users/logout">Logout</a>
-                    </div>
+                <li th:unless="${@currentUser.isAnonymous()}" class="nav-item">
+                    <span class="logged-user">Welcome,
+                        <span class="logged-user"
+                              th:text="${@currentUser.getName()}">
+                        </span>
+                        <a style="display:inline-block" class="nav-link" href="/users/logout">Logout</a>
+                    </span>
+                    <!--                    <form th:action="@{/users/logout}" method="POST">-->
+                    <!--                        <div class="form-inline my-2 my-lg-0 border px-3">-->
+                    <!--                            <div class="logged-user"-->
+                    <!--                                 th:text="${@currentUser.getName()}"></div>-->
+                    <!--                            <input type="submit" class="nav-link" value="Logout"/>-->
+                    <!--                        </div>-->
+                    <!--                    </form>-->
                 </li>
 
                 <li th:if="${@currentUser.isAnonymous()}" class="nav-item">

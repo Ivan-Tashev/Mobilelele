@@ -27,4 +27,10 @@ public class LoginController {
         }
         return "auth-login";
     }
+
+    @GetMapping("/users/logout")
+    public String logout() {
+        userService.logoutUser();
+        return "index";
+    }
 }

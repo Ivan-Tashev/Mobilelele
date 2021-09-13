@@ -8,5 +8,6 @@ public interface UserService {
     // set CurrentUser to the Logged-In user
     void loginUser(String username);
 
-
+    // set CurrentUser to be logout (isAnonymous = true)
+    void logoutUser();
 }
