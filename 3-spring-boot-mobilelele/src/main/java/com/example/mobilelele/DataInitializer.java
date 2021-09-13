@@ -1,22 +1,18 @@
 package com.example.mobilelele;
 
-import com.example.mobilelele.model.entity.Brand;
-import com.example.mobilelele.model.entity.Model;
-import com.example.mobilelele.model.entity.Offer;
-import com.example.mobilelele.model.entity.User;
+import com.example.mobilelele.model.entity.*;
 import com.example.mobilelele.model.entity.enums.Category;
 import com.example.mobilelele.model.entity.enums.Engine;
+import com.example.mobilelele.model.entity.enums.Role;
 import com.example.mobilelele.model.entity.enums.Transmission;
-import com.example.mobilelele.repo.BrandRepo;
-import com.example.mobilelele.repo.ModelRepo;
-import com.example.mobilelele.repo.OfferRepo;
-import com.example.mobilelele.repo.UserRepo;
+import com.example.mobilelele.repo.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -24,13 +20,15 @@ public class DataInitializer implements CommandLineRunner {
     private final BrandRepo brandRepo;
     private final OfferRepo offerRepo;
     private final UserRepo userRepo;
+    private final UserRoleRepo userRoleRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(ModelRepo modelRepo, BrandRepo brandRepo, OfferRepo offerRepo, UserRepo userRepo, PasswordEncoder passwordEncoder) {
+    public DataInitializer(ModelRepo modelRepo, BrandRepo brandRepo, OfferRepo offerRepo, UserRepo userRepo, UserRoleRepo userRoleRepo, PasswordEncoder passwordEncoder) {
         this.modelRepo = modelRepo;
         this.brandRepo = brandRepo;
         this.offerRepo = offerRepo;
         this.userRepo = userRepo;
+        this.userRoleRepo = userRoleRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -56,19 +54,39 @@ public class DataInitializer implements CommandLineRunner {
                 "https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg",
                 80000, BigDecimal.valueOf(15200),2019,"Used, good condition...", Transmission.MANUAL);
 
-        initAdmin();
+        // Initialize Admin and User, with their corresponding roles
+        initUsers();
     }
 
-    private void initAdmin() {
+    private void initUsers() {
+        // save Role.Admin and Role.USER to DB
+        final UserRole adminRole = new UserRole();
+        adminRole.setName(Role.ADMIN);
+        final UserRole userRole = new UserRole();
+        userRole.setName(Role.USER);
+        userRoleRepo.saveAll(List.of(adminRole, userRole));
+        // create admin with 2 roles
         User admin = new User();
         admin.setFirstName("John");
         admin.setLastName("Smith");
         admin.setUsername("admin");
             // save the password encoded to hash in DB
         admin.setPassword(passwordEncoder.encode("1"));
+        admin.setRole(List.of(adminRole, userRole));
         admin.setCreated(Instant.now());
         admin.setModified(Instant.now());
         userRepo.save(admin);
+        // create user with 1 role
+        User user = new User();
+        user.setFirstName("Anne");
+        user.setLastName("Walt");
+        user.setUsername("Anne");
+        // save the password encoded to hash in DB
+        user.setPassword(passwordEncoder.encode("2"));
+        user.setRole(List.of(userRole));
+        user.setCreated(Instant.now());
+        user.setModified(Instant.now());
+        userRepo.save(user);
     }
 
     private void saveOffer(Model model, Engine engine, String imageUrl, Integer km, BigDecimal price,
