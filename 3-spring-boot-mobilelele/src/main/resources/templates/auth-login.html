@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>MobiLeLeLe</title>
     <link rel="stylesheet" href="/css/reset-css.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -15,30 +15,34 @@
 
 <div class="container">
     <h2 class="text-center text-white">Login</h2>
-    <form th:action="@{/users/login}" method="POST"
+    <form th:object="${userModel}" th:action="@{/users/login}" method="POST"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>
-            <input value="Admin" id="username" name="username" type="text" min="2" max="50"
+            <input th:value="*{username}"
+                   id="username" name="username" type="text" min="2" max="50"
                    class="form-control"
-                   placeholder="Username"/>
+                   placeholder="Enter username here..."/>
+            <small th:if="${#fields.hasErrors('username')}" class="text-danger">
+                The username must be 2 symbols minimum.</small>
         </div>
         <div class="form-group">
             <label for="password" class="text-white font-weight-bold">Password</label>
-            <input  value="1" id="password" name="password" type="password" min="2"
+            <input id="password" name="password" type="password" min="2"
                    max="20" class="form-control"
-                   placeholder="Password"/>
-
+                   placeholder="Enter password here..."/>
+            <small th:if="${#fields.hasErrors('password')}" class="text-danger">
+                The password must be 3 symbols minimum.</small>
         </div>
-        
-        <p class="errors alert alert-danger">
+
+        <p th:if="${notFound}" class="errors alert alert-danger">
             Invalid username or password.
         </p>
 
         <div class="row">
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Submit Offer"/>
+                    <input type="submit" class="btn btn-info btn-lg" value="Login"/>
                 </div>
             </div>
         </div>
@@ -46,7 +50,7 @@
 </div>
 
 <div>
-    <footer> </footer>
+    <footer></footer>
 </div>
 </body>
 </html>

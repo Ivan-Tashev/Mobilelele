@@ -71,7 +71,7 @@ public class DataInitializer implements CommandLineRunner {
         admin.setLastName("Smith");
         admin.setUsername("admin");
             // save the password encoded to hash in DB
-        admin.setPassword(passwordEncoder.encode("1"));
+        admin.setPassword(passwordEncoder.encode("123"));
         admin.setRoles(List.of(adminRole, userRole));
         admin.setCreated(Instant.now());
         admin.setModified(Instant.now());
@@ -82,7 +82,7 @@ public class DataInitializer implements CommandLineRunner {
         user.setLastName("Walt");
         user.setUsername("Nicole");
         // save the password encoded to hash in DB
-        user.setPassword(passwordEncoder.encode("2"));
+        user.setPassword(passwordEncoder.encode("456"));
         user.setRoles(List.of(userRole));
         user.setCreated(Instant.now());
         user.setModified(Instant.now());
