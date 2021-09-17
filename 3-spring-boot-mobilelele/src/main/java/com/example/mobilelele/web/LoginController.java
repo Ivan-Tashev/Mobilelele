@@ -19,7 +19,7 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @ModelAttribute("userModel") // create UserLLoginServiceModel for all methods
+    @ModelAttribute("userModel") // create UserLoginServiceModel for all methods
     public UserLoginServiceModel userModel() {
         return new UserLoginServiceModel();
     }
@@ -44,7 +44,7 @@ public class LoginController {
         if (userService.authenticate(userModel.getUsername(), userModel.getPassword())) {
             userService.loginUser(userModel.getUsername());
             return "redirect:/";
-        } else { // wrong password, correct according UserLoginServiceModel, nut not exist in DB
+        } else { // wrong password, correct according UserLoginServiceModel, but not exist in DB
             redirectAttributes.addFlashAttribute("userModel", userModel);
             redirectAttributes.addFlashAttribute("notFound", true);
             return "redirect:/users/login";

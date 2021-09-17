@@ -1,5 +1,10 @@
 package com.example.mobilelele.service;
 
+import com.example.mobilelele.model.entity.UserRole;
+import com.example.mobilelele.model.service.UserRegisterServiceModel;
+
+import java.util.List;
+
 public interface UserService {
 
     // return true, if user authenticated successfully
@@ -10,4 +15,10 @@ public interface UserService {
 
     // set CurrentUser to be logout (isAnonymous = true)
     void logoutUser();
+
+    boolean checkUsername(String username);
+
+    void saveUser(UserRegisterServiceModel userRegisterModel);
+
+    List<UserRole> getUserRoles();
 }
