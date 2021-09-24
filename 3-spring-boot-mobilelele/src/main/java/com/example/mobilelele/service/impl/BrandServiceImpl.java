@@ -34,7 +34,7 @@ public class BrandServiceImpl implements BrandService {
             Brand brand = model.getBrand(); // get Brand for each model
             Optional<BrandViewModel> brandViewModelOptional =
                     findByName(brandViewModelList, brand.getName());
-            if(!brandViewModelOptional.isPresent()){ // if NOT Present create new Brand
+            if (!brandViewModelOptional.isPresent()) { // if NOT Present create new Brand
                 BrandViewModel newBrandViewModel = new BrandViewModel();
                 modelMapper.map(brand, newBrandViewModel);
                 brandViewModelList.add(newBrandViewModel);
@@ -51,8 +51,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Model getModelByName(String model) {
-        return modelRepo.findByName(model);
+    public Model getModelById(Long id) {
+        return modelRepo.findById(id).orElse(null);
     }
 
     private static Optional<BrandViewModel> findByName(List<BrandViewModel> brandViewModel, String name) {

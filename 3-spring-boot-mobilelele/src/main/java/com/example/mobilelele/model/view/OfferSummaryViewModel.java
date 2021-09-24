@@ -7,7 +7,7 @@ import com.example.mobilelele.model.entity.enums.Transmission;
 import java.math.BigDecimal;
 
 public class OfferSummaryViewModel {
-
+    private Long id;
     private String imageUrl;
     private Integer mileage;
     private BigDecimal price;
@@ -15,6 +15,15 @@ public class OfferSummaryViewModel {
     private Transmission transmission;
     private Integer year;
     private Model model;
+
+    public Long getId() {
+        return id;
+    }
+
+    public OfferSummaryViewModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getImageUrl() {
         return imageUrl;

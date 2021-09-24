@@ -10,5 +10,5 @@ import java.util.List;
 public interface BrandService {
     List<BrandViewModel> getAllBrands();
 
-    Model getModelByName(String model);
+    Model getModelById(Long id);
 }

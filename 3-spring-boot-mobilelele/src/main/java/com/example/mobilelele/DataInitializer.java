@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -34,28 +33,49 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        saveBrand("Ford");
-        saveBrand("Honda");
-
-        saveModel("Fiesta", Category.Car,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg/275px-2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg",
-                1976, null, 1L);
-
-        saveModel("Escort", Category.Car,
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Ford_Escort_MkI_1100_1972.JPG/1920px-Ford_Escort_MkI_1100_1972.JPG",
-                1968, 2002, 1L);
-
-
-        saveModel("NC750S", Category.Motorcycle,
-                "https://img1.motorradonline.de/image-fotoshowBig-521029d4-1379946.jpg",
-                2014, null, 2L);
-
-        saveOffer(modelRepo.findById(1L).orElse(null),Engine.GASOLINE,
-                "https://www.motopfohe.bg/files/news/archive/2017/08/blob-server.jpg",
-                80000, BigDecimal.valueOf(15200),2019,"Used, good condition...", Transmission.MANUAL);
-
         // Initialize Admin and User, with their corresponding roles
-        initUsers();
+        if (userRepo.count() == 0) {
+            initUsers();
+        }
+        // Initialize Brands
+        if (brandRepo.count() == 0) {
+            saveBrand("Mercedes");
+            saveBrand("BMW");
+            saveBrand("Reno");
+            saveBrand("Ducati");
+        }
+        // Initialize Models
+        if (modelRepo.count() == 0) {
+            saveModel("C43 AMG", Category.Car,
+                    "https://www.mbusa.com/content/dam/mb-nafta/us/myco/my21/c/cab/byo-options/2021-AMG-C-CABRIOLET-MP-030.jpg",
+                    2016, null, 1L);
+
+            saveModel("CLS 350d", Category.Car,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRYwzKmEx_Exn8v2_ybs-aBmiviPlA6qZaw&usqp=CAU",
+                    2009, null, 1L);
+
+
+            saveModel("Supersport S", Category.Motorcycle,
+                    "https://www.motostop.eu/productimages/20024/59406.jpg",
+                    2018, null, 4L);
+
+            saveModel("Master", Category.Motorcycle,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbrPEwx7VDgSB_DM-_e1q_Rp9Sxr948zhdCNRGqUB7zZSU64y_ASfBwzDiSH0yA1iTjp4&usqp=CAU",
+                    2010, null, 3L);
+        }
+        // Initialize Offers
+        if (offerRepo.count() == 0) {
+            saveOffer(modelRepo.findById(1L).orElse(null), Engine.DIESEL,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNpy0JRZFx0C2r6GD5Es53gzuXEJFiqFp-Hw&usqp=CAU",
+                    22000, BigDecimal.valueOf(88000), 2017, "Used, garaged, good condition...", Transmission.AUTOMATIC);
+
+            saveOffer(modelRepo.findById(3L).orElse(null), Engine.GASOLINE,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDdGIx2lNIceux7zi9qu5aQtYXE7EYRBluGA&usqp=CAU",
+                    20500, BigDecimal.valueOf(29500), 2015, "Used, but well services and in good condition.", Transmission.MANUAL);
+        }
+
+
+
     }
 
     private void initUsers() {
@@ -70,7 +90,7 @@ public class DataInitializer implements CommandLineRunner {
         admin.setFirstName("John");
         admin.setLastName("Smith");
         admin.setUsername("admin");
-            // save the password encoded to hash in DB
+        // save the password encoded to hash in DB
         admin.setPassword(passwordEncoder.encode("123"));
         admin.setRoles(List.of(adminRole, userRole));
         userRepo.save(admin);
@@ -96,6 +116,7 @@ public class DataInitializer implements CommandLineRunner {
         offer.setYear(year);
         offer.setDescription(description);
         offer.setTransmission(transmission);
+        offer.setSeller(userRepo.getById(1L));
         offerRepo.save(offer);
     }
 

@@ -1,5 +1,6 @@
 package com.example.mobilelele.service;
 
+import com.example.mobilelele.model.entity.User;
 import com.example.mobilelele.model.entity.UserRole;
 import com.example.mobilelele.model.service.UserRegisterServiceModel;
 
@@ -21,4 +22,6 @@ public interface UserService {
     void saveUser(UserRegisterServiceModel userRegisterModel);
 
     List<UserRole> getUserRoles();
+
+    User getUserByName(String name);
 }

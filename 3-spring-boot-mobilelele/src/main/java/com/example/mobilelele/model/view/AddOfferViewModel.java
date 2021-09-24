@@ -18,7 +18,7 @@ public class AddOfferViewModel {
     private Integer year;
     @NotNull @PositiveOrZero
     private Integer mileage;
-    @NotEmpty
+    @NotEmpty @Size(min = 10, max = 3000)
     private String description;
     @NotEmpty
     private String imageUrl;

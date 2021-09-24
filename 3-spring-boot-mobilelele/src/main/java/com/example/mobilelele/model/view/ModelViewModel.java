@@ -3,12 +3,21 @@ package com.example.mobilelele.model.view;
 import com.example.mobilelele.model.entity.enums.Category;
 
 public class ModelViewModel {
-
+    private Long id;
     private String name;
     private Category category;
     private String imageUrl;
     private Integer startYear;
     private Integer endYear;
+
+    public Long getId() {
+        return id;
+    }
+
+    public ModelViewModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;

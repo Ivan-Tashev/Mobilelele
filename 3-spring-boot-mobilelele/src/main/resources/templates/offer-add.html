@@ -25,7 +25,9 @@
                 <select th:field="*{model}" name="model" id="model" class="form-control">
                     <option value="">- Select a model -</option>
                     <optgroup th:each="b : ${brands}" th:label="${b.name}" label="Brand name">
-                        <option th:each="m : ${b.getModels()}" th:text="${m.name}" th:value="${m.name}">Model</option>
+                        <option th:each="m : ${b.getModels()}" th:text="${m.name}" th:value="${m.getId()}"
+<!--                        th:selected="${m.getId()} == *{model}" -->
+                        >Model</option>
                     </optgroup>
                 </select>
                 <p th:if="${#fields.hasErrors('model')}" class="errors alert alert-danger">

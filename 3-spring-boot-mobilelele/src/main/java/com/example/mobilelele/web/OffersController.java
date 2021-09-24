@@ -1,5 +1,6 @@
 package com.example.mobilelele.web;
 
+import com.example.mobilelele.model.entity.Offer;
 import com.example.mobilelele.model.entity.enums.Engine;
 import com.example.mobilelele.model.entity.enums.Transmission;
 import com.example.mobilelele.model.view.AddOfferViewModel;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,9 +49,17 @@ public class OffersController {
             return "redirect:/offers/add";
         }
 
-        offerService.saveOffer(addOfferViewModel);
+        Long offerId = offerService.saveOffer(addOfferViewModel);
 
-        return "redirect:all";
+        return "redirect:/offers/offer/" + offerId;
+    }
+
+    @GetMapping("/offer/{id}")
+    public String offerDetails(@PathVariable String id, Model model) {
+        model.addAttribute("id", id);
+        Offer offer = offerService.findOfferById(id);
+        model.addAttribute("offer" ,offer);
+        return "details";
     }
 
     @GetMapping("/all")
