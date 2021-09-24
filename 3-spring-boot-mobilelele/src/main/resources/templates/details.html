@@ -27,13 +27,13 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div th:text="*{mileage}" class="card-text"><span>• Mileage</span></div>
-                    <div th:text="*{price}" class="card-text"><span>• Price</span></div>
-                    <div th:text="*{engine}" class="card-text"><span>• Engine type</span></div>
-                    <div th:text="*{transmission}" class="card-text"><span>• Transmission type</span></div>
-                    <div th:text="*{created}" class="card-text"><span>• Offer created</span></div>
-                    <div th:text="*{modified}" class="card-text"><span>• Offer modified</span></div>
-                    <div th:text="|*{getSeller().getFirstName()} *{getSeller().getLastName()}|" class="card-text"><span>• Seller - First and Last name</span>
+                    <div class="card-text"><span th:text="|• Mileage: *{mileage}km|" ></span></div>
+                    <div class="card-text"><span th:text="|• Price: *{price}bgn|" ></span></div>
+                    <div class="card-text"><span th:text="|• Engine type: *{engine}|"></span></div>
+                    <div class="card-text"><span th:text="|• Transmission type: *{transmission}"></span></div>
+                    <div class="card-text"><span th:text="|• Offer created *{created}||"></span></div>
+                    <div class="card-text"><span th:text="|• Offer modified *{modified}|" ></span></div>
+                    <div class="card-text"><span th:text="|• Seller - *{getSeller().getFirstName()} *{getSeller().getLastName()}|"></span>
                     </div>
                 </li>
             </ul>

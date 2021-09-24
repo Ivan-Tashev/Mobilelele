@@ -29,10 +29,10 @@
                 </div>
                 <ul class="offer-details list-group list-group-flush">
                     <li class="list-group-item">
-                        <div th:text="${offer.mileage}" class="card-text"><span>• Mileage</span></div>
-                        <div th:text="${offer.price}" class="card-text"><span>• Price</span></div>
-                        <div th:text="${offer.engine}" class="card-text"><span>• Engine type</span></div>
-                        <div th:text="${offer.transmission}" class="card-text"><span>• Transmission type</span></div>
+                        <div class="card-text"><span th:text="|• Mileage: ${offer.mileage}km|"></span></div>
+                        <div class="card-text"><span th:text="|• Price: ${offer.price}bgn|"></span></div>
+                        <div class="card-text"><span th:text="|• Engine type: ${offer.price}|"></span></div>
+                        <div class="card-text"><span th:text="|• Transmission type: ${offer.transmission}|"></span></div>
                     </li>
                 </ul>
                 <div class="card-body">
