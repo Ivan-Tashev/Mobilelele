@@ -62,4 +62,9 @@ public class OfferServiceImpl implements OfferService {
     public Offer findOfferById(String id) {
         return offerRepo.findById(Long.parseLong(id)).orElse(null);
     }
+
+    @Override
+    public void delete(Long id) {
+        offerRepo.deleteById(id);
+    }
 }

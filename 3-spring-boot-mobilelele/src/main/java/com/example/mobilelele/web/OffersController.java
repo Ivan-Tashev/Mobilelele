@@ -9,10 +9,7 @@ import com.example.mobilelele.service.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -60,6 +57,12 @@ public class OffersController {
         Offer offer = offerService.findOfferById(id);
         model.addAttribute("offer" ,offer);
         return "details";
+    }
+
+    @DeleteMapping("/offer/{id}")
+    public String deleteOffer(@PathVariable Long id){
+        offerService.delete(id);
+        return "redirect:/offers/all";
     }
 
     @GetMapping("/all")

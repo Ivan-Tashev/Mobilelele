@@ -15,4 +15,6 @@ public interface OfferService {
     Long saveOffer(AddOfferViewModel addOfferViewModel);
 
     Offer findOfferById(String id);
+
+    void delete(Long id);
 }

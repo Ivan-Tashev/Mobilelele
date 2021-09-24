@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>MobiLeLeLe</title>
     <link rel="stylesheet" href="/css/reset-css.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -19,9 +19,9 @@
 <div class="container-fluid">
     <h2 class="text-center text-white mt-5">Details</h2>
     <div th:object="${offer}" class="offers row mx-auto d-flex flex-row justify-content-center">
-        <div  class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0" >
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
 
-            <div  class="card-body pb-1">
+            <div class="card-body pb-1">
                 <h5 th:text="|*{year} *{model.getBrand().getName()} *{model.getName()}|" class="card-title">
                     Offer year Brand name Model name</h5>
             </div>
@@ -33,22 +33,25 @@
                     <div th:text="*{transmission}" class="card-text"><span>• Transmission type</span></div>
                     <div th:text="*{created}" class="card-text"><span>• Offer created</span></div>
                     <div th:text="*{modified}" class="card-text"><span>• Offer modified</span></div>
-                    <div th:text="|*{getSeller().getFirstName()} *{getSeller().getLastName()}|" class="card-text"><span>• Seller - First and Last name</span></div>
+                    <div th:text="|*{getSeller().getFirstName()} *{getSeller().getLastName()}|" class="card-text"><span>• Seller - First and Last name</span>
+                    </div>
                 </li>
             </ul>
             <div class="card-body">
                 <a class="card-link" href="/">Update</a>
-                <a class="card-link" href="/">Delete</a>
+                <form th:action="@{/offers/offer/{id}(id =${id})}" th:method="delete">
+                    <input type="submit" value="Delete" class="card-link">
+                </form>
             </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
-            <img th:src="*{imageUrl}" src="/" class="card-img-top"  alt="Car image">
+            <img th:src="*{imageUrl}" src="/" class="card-img-top" alt="Car image">
         </div>
     </div>
 </div>
 
 <div>
-             <footer> </footer>
+    <footer></footer>
 </div>
 
 </body>
