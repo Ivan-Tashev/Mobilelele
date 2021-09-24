@@ -1,5 +1,7 @@
 package com.example.mobilelele.model.view;
 
+import com.example.mobilelele.model.validation.YearInPastOrPresent;
+
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
@@ -12,7 +14,7 @@ public class AddOfferViewModel {
     private String engine;
     @NotEmpty
     private String transmission;
-    @NotNull @Min(1930) @Max(2021)
+    @YearInPastOrPresent(minYear = 1930)
     private Integer year;
     @NotNull @PositiveOrZero
     private Integer mileage;

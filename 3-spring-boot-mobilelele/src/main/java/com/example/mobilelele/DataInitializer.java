@@ -73,8 +73,6 @@ public class DataInitializer implements CommandLineRunner {
             // save the password encoded to hash in DB
         admin.setPassword(passwordEncoder.encode("123"));
         admin.setRoles(List.of(adminRole, userRole));
-        admin.setCreated(Instant.now());
-        admin.setModified(Instant.now());
         userRepo.save(admin);
         // create user with 1 role
         User user = new User();
@@ -84,8 +82,6 @@ public class DataInitializer implements CommandLineRunner {
         // save the password encoded to hash in DB
         user.setPassword(passwordEncoder.encode("456"));
         user.setRoles(List.of(userRole));
-        user.setCreated(Instant.now());
-        user.setModified(Instant.now());
         userRepo.save(user);
     }
 
@@ -100,8 +96,6 @@ public class DataInitializer implements CommandLineRunner {
         offer.setYear(year);
         offer.setDescription(description);
         offer.setTransmission(transmission);
-        offer.setCreated(Instant.now());
-        offer.setModified(Instant.now());
         offerRepo.save(offer);
     }
 
@@ -112,8 +106,6 @@ public class DataInitializer implements CommandLineRunner {
         model.setImageUrl(imageUrl);
         model.setStartYear(startYear);
         model.setEndYear(endYear);
-        model.setCreated(Instant.now());
-        model.setModified(Instant.now());
         model.setBrand(brandRepo.findById(brandId).orElse(null));
         modelRepo.save(model);
     }
@@ -121,8 +113,6 @@ public class DataInitializer implements CommandLineRunner {
     private void saveBrand(String name) {
         Brand brand = new Brand();
         brand.setName(name);
-        brand.setCreated(Instant.now());
-        brand.setModified(Instant.now());
         brandRepo.save(brand);
     }
 }
