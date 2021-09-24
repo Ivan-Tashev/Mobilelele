@@ -1,0 +1,6 @@
+HELP.md
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+src/test/

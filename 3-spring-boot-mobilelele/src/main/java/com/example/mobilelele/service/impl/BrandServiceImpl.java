@@ -41,13 +41,18 @@ public class BrandServiceImpl implements BrandService {
                 brandViewModelOptional = Optional.of(newBrandViewModel);
             }
 
-            // create new Model and add it to the Brand it belong
+            // create new Model and add it to the Brand it belongs
             ModelViewModel newModelViewModel = new ModelViewModel();
             modelMapper.map(model, newModelViewModel);
             brandViewModelOptional.get().addModel(newModelViewModel);
         });
 
         return brandViewModelList;
+    }
+
+    @Override
+    public Model getModelByName(String model) {
+        return modelRepo.findByName(model);
     }
 
     private static Optional<BrandViewModel> findByName(List<BrandViewModel> brandViewModel, String name) {
