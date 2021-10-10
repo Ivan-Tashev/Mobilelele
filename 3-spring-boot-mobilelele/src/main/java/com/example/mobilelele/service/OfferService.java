@@ -12,7 +12,7 @@ public interface OfferService {
 
     List<OfferSummaryViewModel> getAllOffers();
 
-    Long saveOffer(AddOfferViewModel addOfferViewModel);
+    Long saveOffer(AddOfferViewModel addOfferViewModel, String username);
 
     Offer findOfferById(String id);
 

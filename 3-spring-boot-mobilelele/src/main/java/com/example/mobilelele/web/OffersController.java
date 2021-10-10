@@ -6,6 +6,7 @@ import com.example.mobilelele.model.entity.enums.Transmission;
 import com.example.mobilelele.model.view.AddOfferViewModel;
 import com.example.mobilelele.service.BrandService;
 import com.example.mobilelele.service.OfferService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/offers")
@@ -38,7 +40,8 @@ public class OffersController {
 
     @PostMapping("/add")
     public String addOffer(@Valid AddOfferViewModel addOfferViewModel,
-                           BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                           BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                           @AuthenticationPrincipal Principal principal) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addOfferViewModel", addOfferViewModel);
             redirectAttributes.addFlashAttribute(
@@ -46,7 +49,7 @@ public class OffersController {
             return "redirect:/offers/add";
         }
 
-        Long offerId = offerService.saveOffer(addOfferViewModel);
+        Long offerId = offerService.saveOffer(addOfferViewModel, principal.getName());
 
         return "redirect:/offers/offer/" + offerId;
     }

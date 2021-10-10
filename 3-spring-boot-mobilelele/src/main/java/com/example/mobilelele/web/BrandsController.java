@@ -22,7 +22,7 @@ public class BrandsController { // in web package
 
 
 
-    // EDUCATION PURPOSES BELLOW !!!
+    //--------------------------- EDUCATION PURPOSES BELLOW !!! -------------------------------------------
 
     @GetMapping("/details/{id}")
     @ResponseBody // return response body (5)

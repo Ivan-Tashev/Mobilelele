@@ -59,7 +59,7 @@ public class DataInitializer implements CommandLineRunner {
                     "https://www.motostop.eu/productimages/20024/59406.jpg",
                     2018, null, 4L);
 
-            saveModel("Master", Category.Motorcycle,
+            saveModel("Master", Category.Bus,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbrPEwx7VDgSB_DM-_e1q_Rp9Sxr948zhdCNRGqUB7zZSU64y_ASfBwzDiSH0yA1iTjp4&usqp=CAU",
                     2010, null, 3L);
         }
@@ -73,18 +73,20 @@ public class DataInitializer implements CommandLineRunner {
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDdGIx2lNIceux7zi9qu5aQtYXE7EYRBluGA&usqp=CAU",
                     20500, BigDecimal.valueOf(29500), 2015, "Used, but well services and in good condition.", Transmission.MANUAL);
         }
-
-
-
     }
 
     private void initUsers() {
         // save Role.Admin and Role.USER to DB
-        final UserRole adminRole = new UserRole();
-        adminRole.setName(Role.ADMIN);
-        final UserRole userRole = new UserRole();
-        userRole.setName(Role.USER);
-        userRoleRepo.saveAll(List.of(adminRole, userRole));
+        if (userRoleRepo.findByName(Role.ADMIN) == null) {
+            UserRole adminRole = new UserRole();
+            adminRole.setName(Role.ADMIN);
+            userRoleRepo.save(adminRole);
+        }
+        if (userRoleRepo.findByName(Role.USER) == null) {
+            UserRole userRole = new UserRole();
+            userRole.setName(Role.USER);
+            userRoleRepo.save(userRole);
+        }
         // create admin with 2 roles
         User admin = new User();
         admin.setFirstName("John");
@@ -92,16 +94,16 @@ public class DataInitializer implements CommandLineRunner {
         admin.setUsername("admin");
         // save the password encoded to hash in DB
         admin.setPassword(passwordEncoder.encode("123"));
-        admin.setRoles(List.of(adminRole, userRole));
+        admin.setRoles(List.of(userRoleRepo.findByName(Role.ADMIN), userRoleRepo.findByName(Role.USER)));
         userRepo.save(admin);
         // create user with 1 role
         User user = new User();
-        user.setFirstName("Nicole");
-        user.setLastName("Walt");
-        user.setUsername("Nicole");
+        user.setFirstName("Ivan");
+        user.setLastName("Tashev");
+        user.setUsername("anl");
         // save the password encoded to hash in DB
-        user.setPassword(passwordEncoder.encode("456"));
-        user.setRoles(List.of(userRole));
+        user.setPassword(passwordEncoder.encode("123"));
+        user.setRoles(List.of(userRoleRepo.findByName(Role.USER)));
         userRepo.save(user);
     }
 

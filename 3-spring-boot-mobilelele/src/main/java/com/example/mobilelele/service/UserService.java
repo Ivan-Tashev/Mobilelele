@@ -9,13 +9,13 @@ import java.util.List;
 public interface UserService {
 
     // return true, if user authenticated successfully
-    boolean authenticate(String username, String password);
+//    boolean authenticate(String username, String password);
 
     // set CurrentUser to the Logged-In user
-    void loginUser(String username);
+//    void loginUser(String username);
 
     // set CurrentUser to be logout (isAnonymous = true)
-    void logoutUser();
+//    void logoutUser();
 
     boolean checkUsername(String username);
 

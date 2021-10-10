@@ -6,7 +6,6 @@ import com.example.mobilelele.model.entity.enums.Transmission;
 import com.example.mobilelele.model.view.AddOfferViewModel;
 import com.example.mobilelele.model.view.OfferSummaryViewModel;
 import com.example.mobilelele.repo.OfferRepo;
-import com.example.mobilelele.security.CurrentUser;
 import com.example.mobilelele.service.BrandService;
 import com.example.mobilelele.service.OfferService;
 import com.example.mobilelele.service.UserService;
@@ -18,14 +17,12 @@ import java.util.List;
 
 @Service
 public class OfferServiceImpl implements OfferService {
-    private final CurrentUser currentUser;
     private final UserService userService;
     private final OfferRepo offerRepo;
     private final ModelMapper modelMapper;
     private final BrandService brandService;
 
-    public OfferServiceImpl(CurrentUser currentUser, UserService userService, OfferRepo offerRepo, ModelMapper modelMapper, BrandService brandService) {
-        this.currentUser = currentUser;
+    public OfferServiceImpl(UserService userService, OfferRepo offerRepo, ModelMapper modelMapper, BrandService brandService) {
         this.userService = userService;
         this.offerRepo = offerRepo;
         this.modelMapper = modelMapper;
@@ -48,12 +45,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Long saveOffer(AddOfferViewModel addOfferViewModel) {
+    public Long saveOffer(AddOfferViewModel addOfferViewModel, String username) {
         Offer offer = modelMapper.map(addOfferViewModel, Offer.class);
         offer.setModel(brandService.getModelById(Long.parseLong(addOfferViewModel.getModel())));
         offer.setEngine(Engine.valueOf(addOfferViewModel.getEngine()));
         offer.setTransmission(Transmission.valueOf(addOfferViewModel.getTransmission()));
-        offer.setSeller(userService.getUserByName(currentUser.getName()));
+        offer.setSeller(userService.getUserByName(username));
         Offer currentOffer = offerRepo.save(offer);
         return currentOffer.getId();
     }
