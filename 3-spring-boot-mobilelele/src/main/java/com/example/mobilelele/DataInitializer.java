@@ -69,9 +69,13 @@ public class DataInitializer implements CommandLineRunner {
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNpy0JRZFx0C2r6GD5Es53gzuXEJFiqFp-Hw&usqp=CAU",
                     22000, BigDecimal.valueOf(88000), 2017, "Used, garaged, good condition...", Transmission.AUTOMATIC);
 
-            saveOffer(modelRepo.findById(3L).orElse(null), Engine.GASOLINE,
+            saveOffer(modelRepo.findById(4L).orElse(null), Engine.GASOLINE,
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDdGIx2lNIceux7zi9qu5aQtYXE7EYRBluGA&usqp=CAU",
                     20500, BigDecimal.valueOf(29500), 2015, "Used, but well services and in good condition.", Transmission.MANUAL);
+
+            saveOffer(modelRepo.findById(3L).orElse(null), Engine.GASOLINE,
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNLcCBIqojwLokGRl-HugHHL23vtJsXFOkWg&usqp=CAU",
+                    2100, BigDecimal.valueOf(25000), 2018, "Almost new...", Transmission.MANUAL);
         }
     }
 

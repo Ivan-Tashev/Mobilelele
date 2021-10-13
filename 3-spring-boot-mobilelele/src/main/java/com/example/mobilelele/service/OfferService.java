@@ -1,6 +1,7 @@
 package com.example.mobilelele.service;
 
 import com.example.mobilelele.model.entity.Offer;
+import com.example.mobilelele.model.service.OfferServiceModel;
 import com.example.mobilelele.model.view.AddOfferViewModel;
 import com.example.mobilelele.model.view.OfferSummaryViewModel;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,9 @@ public interface OfferService {
 
     Long saveOffer(AddOfferViewModel addOfferViewModel, String username);
 
-    Offer findOfferById(String id);
+    OfferServiceModel findOfferById(Long id);
 
     void delete(Long id);
+
+    Long updateOffer(OfferServiceModel offerServiceModel);
 }

@@ -27,21 +27,24 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span th:text="|• Mileage: *{mileage}km|" ></span></div>
-                    <div class="card-text"><span th:text="|• Price: *{price}bgn|" ></span></div>
-                    <div class="card-text"><span th:text="|• Engine type: *{engine}|"></span></div>
-                    <div class="card-text"><span th:text="|• Transmission type: *{transmission}"></span></div>
-                    <div class="card-text"><span th:text="|• Offer created *{created}||"></span></div>
-                    <div class="card-text"><span th:text="|• Offer modified *{modified}|" ></span></div>
-                    <div class="card-text"><span th:text="|• Seller - *{getSeller().getFirstName()} *{getSeller().getLastName()}|"></span>
+                    <div class="card-text"><span th:text="|• Mileage: *{mileage}km|"></span></div>
+                    <div class="card-text"><span th:text="|• Price: *{price}bgn|"></span></div>
+                    <div class="card-text"><span th:text="|• Engine: *{engine}|"></span></div>
+                    <div class="card-text"><span th:text="|• Transmission: *{transmission}|"></span></div>
+                    <div class="card-text"><span th:text="|• Offer created *{created}|"></span></div>
+                    <div class="card-text"><span th:text="|• Offer modified *{modified}|"></span></div>
+                    <div class="card-text"><span
+                            th:text="|• Seller - *{getSeller().getFirstName()} *{getSeller().getLastName()}|"></span>
                     </div>
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" href="/">Update</a>
-                <form th:action="@{/offers/offer/{id}(id =${id})}" th:method="delete">
-                    <input type="submit" value="Delete" class="card-link">
-                </form>
+                <div class="row">
+                    <a class="btn btn-link" th:href="@{/offers/{id}/update(id=${offer.id})}">Update</a>
+                    <form th:action="@{/offers/{id}(id =${offer.id})}" th:method="delete">
+                        <input type="submit" value="Delete" class="btn btn-link">
+                    </form>
+                </div>
             </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">

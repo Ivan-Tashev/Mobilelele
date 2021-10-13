@@ -1,11 +1,13 @@
 package com.example.mobilelele.web;
 
-import com.example.mobilelele.model.entity.Offer;
+import com.example.mobilelele.model.entity.binding.OfferUpdateBindModel;
 import com.example.mobilelele.model.entity.enums.Engine;
 import com.example.mobilelele.model.entity.enums.Transmission;
+import com.example.mobilelele.model.service.OfferServiceModel;
 import com.example.mobilelele.model.view.AddOfferViewModel;
 import com.example.mobilelele.service.BrandService;
 import com.example.mobilelele.service.OfferService;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +23,15 @@ import java.security.Principal;
 public class OffersController {
     private final OfferService offerService;
     private final BrandService brandService;
+    private final ModelMapper modelMapper;
 
-    public OffersController(OfferService offerService, BrandService brandService) {
+    public OffersController(OfferService offerService, BrandService brandService, ModelMapper modelMapper) {
         this.offerService = offerService;
         this.brandService = brandService;
+        this.modelMapper = modelMapper;
     }
 
+    // GET (ADD)
     @GetMapping("/add")
     public String getAddOfferPage(Model model) {
         model.addAttribute("brands", brandService.getAllBrands()); // List<BrandViewModel>
@@ -38,6 +43,7 @@ public class OffersController {
         return "offer-add";
     }
 
+    // POST (ADD)
     @PostMapping("/add")
     public String addOffer(@Valid AddOfferViewModel addOfferViewModel,
                            BindingResult bindingResult, RedirectAttributes redirectAttributes,
@@ -51,26 +57,60 @@ public class OffersController {
 
         Long offerId = offerService.saveOffer(addOfferViewModel, principal.getName());
 
-        return "redirect:/offers/offer/" + offerId;
+        return "redirect:/offers/" + offerId;
     }
 
-    @GetMapping("/offer/{id}")
-    public String offerDetails(@PathVariable String id, Model model) {
-        model.addAttribute("id", id);
-        Offer offer = offerService.findOfferById(id);
-        model.addAttribute("offer" ,offer);
+    // GET (by id)
+    @GetMapping("/{id}")
+    public String offerDetails(@PathVariable Long id, Model model) {
+        OfferServiceModel offer = offerService.findOfferById(id);
+        model.addAttribute("offer", offer);
         return "details";
     }
 
-    @DeleteMapping("/offer/{id}")
-    public String deleteOffer(@PathVariable Long id){
-        offerService.delete(id);
-        return "redirect:/offers/all";
-    }
-
+    // GET (ALL)
     @GetMapping("/all")
     public String getAllOffers(Model model) {
         model.addAttribute("offers", offerService.getAllOffers());
         return "offers";
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public String deleteOffer(@PathVariable Long id) {
+        offerService.delete(id); // -> offerRepo.deleteById(id);
+        return "redirect:/offers/all";
+    }
+    // <form th:action="@{/offers/{id}(id =${id})}" th:method="delete">
+    // <input type="submit" value="Delete"></form>
+
+    // UPDATE GET (PAGE)
+    @GetMapping("/{id}/update")
+    public String getUpdatePage(@PathVariable Long id, Model model) {
+        OfferServiceModel offerServiceModel = offerService.findOfferById(id);
+        if (!model.containsAttribute("offerUpdateBindModel")) {
+            OfferUpdateBindModel offerUpdateBindModel = modelMapper.map(offerServiceModel, OfferUpdateBindModel.class);
+            offerUpdateBindModel.setModel(offerServiceModel.getModel().getBrand().getName() + " "
+                    + offerServiceModel.getModel().getName());
+            model.addAttribute("offerUpdateBindModel", offerUpdateBindModel);
+        }
+        return "update";
+    }
+
+    // PATCH or PUT
+    @PatchMapping("/{id}/update")
+    public String updateOffer(@PathVariable Long id,
+                              @Valid OfferUpdateBindModel offerUpdateBindModel,
+                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("offerUpdateBindModel", offerUpdateBindModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.offerUpdateBindModel", bindingResult);
+            return "redirect:/offers/" + id + "/update";
+        }
+        OfferServiceModel offerServiceModel = modelMapper.map(offerUpdateBindModel, OfferServiceModel.class);
+        offerServiceModel.setId(id);
+        Long updatedId = offerService.updateOffer(offerServiceModel);
+
+        return "redirect:/offers/" + updatedId;
     }
 }

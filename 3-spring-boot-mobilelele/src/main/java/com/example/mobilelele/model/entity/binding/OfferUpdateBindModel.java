@@ -1,25 +1,30 @@
-package com.example.mobilelele.model.view;
+package com.example.mobilelele.model.entity.binding;
 
+import com.example.mobilelele.model.entity.Model;
+import com.example.mobilelele.model.entity.enums.Engine;
+import com.example.mobilelele.model.entity.enums.Transmission;
 import com.example.mobilelele.model.validation.YearInPastOrPresent;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-public class AddOfferViewModel {
+public class OfferUpdateBindModel {
     private Long id;
-    @NotEmpty
     private String model;
-    @NotNull @DecimalMin("100")
+    @NotNull(message = "Price must be greater than 100, required.")
+    @DecimalMin("100")
     private BigDecimal price;
-    @NotEmpty
-    private String engine;
-    @NotEmpty
-    private String transmission;
-    @YearInPastOrPresent(minYear = 1930)
+    @NotNull
+    private Engine engine;
+    @NotNull
+    private Transmission transmission;
+    @YearInPastOrPresent(minYear = 1930, message = "Year must be from 1930 to 2100, required.")
     private Integer year;
-    @NotNull @PositiveOrZero
+    @NotNull (message = "Mileage must be Positive number ot Zero, required.")
+    @PositiveOrZero
     private Integer mileage;
-    @NotEmpty @Size(min = 10, max = 3000)
+    @NotEmpty (message = "Description must be from 10 to 3000 chars long, required.")
+    @Size(min = 10, max = 3000)
     private String description;
     @NotEmpty
     private String imageUrl;
@@ -28,7 +33,7 @@ public class AddOfferViewModel {
         return id;
     }
 
-    public AddOfferViewModel setId(Long id) {
+    public OfferUpdateBindModel setId(Long id) {
         this.id = id;
         return this;
     }
@@ -37,7 +42,7 @@ public class AddOfferViewModel {
         return model;
     }
 
-    public AddOfferViewModel setModel(String model) {
+    public OfferUpdateBindModel setModel(String model) {
         this.model = model;
         return this;
     }
@@ -46,25 +51,25 @@ public class AddOfferViewModel {
         return price;
     }
 
-    public AddOfferViewModel setPrice(BigDecimal price) {
+    public OfferUpdateBindModel setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
 
-    public String getEngine() {
+    public Engine getEngine() {
         return engine;
     }
 
-    public AddOfferViewModel setEngine(String engine) {
+    public OfferUpdateBindModel setEngine(Engine engine) {
         this.engine = engine;
         return this;
     }
 
-    public String getTransmission() {
+    public Transmission getTransmission() {
         return transmission;
     }
 
-    public AddOfferViewModel setTransmission(String transmission) {
+    public OfferUpdateBindModel setTransmission(Transmission transmission) {
         this.transmission = transmission;
         return this;
     }
@@ -73,7 +78,7 @@ public class AddOfferViewModel {
         return year;
     }
 
-    public AddOfferViewModel setYear(Integer year) {
+    public OfferUpdateBindModel setYear(Integer year) {
         this.year = year;
         return this;
     }
@@ -82,7 +87,7 @@ public class AddOfferViewModel {
         return mileage;
     }
 
-    public AddOfferViewModel setMileage(Integer mileage) {
+    public OfferUpdateBindModel setMileage(Integer mileage) {
         this.mileage = mileage;
         return this;
     }
@@ -91,7 +96,7 @@ public class AddOfferViewModel {
         return description;
     }
 
-    public AddOfferViewModel setDescription(String description) {
+    public OfferUpdateBindModel setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -100,7 +105,7 @@ public class AddOfferViewModel {
         return imageUrl;
     }
 
-    public AddOfferViewModel setImageUrl(String imageUrl) {
+    public OfferUpdateBindModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
